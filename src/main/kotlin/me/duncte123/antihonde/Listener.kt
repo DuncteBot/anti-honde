@@ -36,7 +36,11 @@ class Listener : EventListener {
     }
 
     private val hondeFilter: (Member) -> Boolean = {
-        it.effectiveName.lowercase().contains("h0nde") || it.effectiveName.lowercase().contains("honde")
+        val parsed = it.effectiveName.lowercase()
+                // replace zero width spaces
+            .replace("\u200B", "")
+
+        parsed.contains("h0nde") || parsed.contains("honde")
     }
 
     private fun startupBan(guild: Guild) {

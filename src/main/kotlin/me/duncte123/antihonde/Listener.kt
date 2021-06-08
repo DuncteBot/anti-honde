@@ -2,11 +2,13 @@ package me.duncte123.antihonde
 
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.TextChannel
 import net.dv8tion.jda.api.events.GenericEvent
 import net.dv8tion.jda.api.events.ReadyEvent
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.hooks.EventListener
 import org.slf4j.LoggerFactory
 
@@ -25,12 +27,30 @@ class Listener : EventListener {
             }
             is GuildJoinEvent -> {
                 // we joined, initiate ban
-                log.info("Just joined${event.guild}! Doing startup ban!")
+                log.info("Just joined ${event.guild}! Doing startup ban!")
                 this.startupBan(event.guild)
             }
             is GuildMemberJoinEvent -> {
                 // member joined, ban all honde
                 this.banHonde(event.member)
+            }
+            is MessageReceivedEvent -> {
+                val channel = event.channel
+                val self = event.jda.selfUser
+
+                if (!event.message.isMentioned(self) ||
+                    (channel is TextChannel && !channel.canTalk())
+                ) {
+                    return
+                }
+
+                channel.sendMessage("""Hello I'm `${self.asTag}`, here to ban these annoying h0nde bots
+                    |
+                    |Invite me: <https://duncte.bot/antihonde>
+                    |View source code: <https://github.com/DuncteBot/anti-honde>
+                """.trimMargin())
+                    .reference(event.message)
+                    .queue()
             }
         }
     }

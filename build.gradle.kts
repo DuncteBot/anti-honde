@@ -10,7 +10,7 @@ group = "me.duncte123"
 version = "1.0-SNAPSHOT"
 
 application {
-    mainClassName = "${project.group}.antihonde.MainKt"
+    mainClass.set("${project.group}.antihonde.MainKt")
 }
 
 repositories {
@@ -26,6 +26,9 @@ dependencies {
 tasks {
     wrapper {
         gradleVersion = "7.0.2"
+    }
+    shadowJar {
+        archiveClassifier.set("")
     }
 }
 

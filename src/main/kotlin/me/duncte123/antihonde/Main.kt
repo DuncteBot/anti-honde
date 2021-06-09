@@ -5,6 +5,9 @@ import net.dv8tion.jda.api.entities.Activity
 import net.dv8tion.jda.api.requests.GatewayIntent
 import java.lang.System.getenv
 
+const val SELF_ID = 851848855229038642L
+val MENTION_REGEX = "^<@!?$SELF_ID>\$".toRegex()
+
 fun main() {
     val token = getenv("TOKEN")
 

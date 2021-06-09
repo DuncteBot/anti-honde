@@ -63,7 +63,7 @@ class Listener : EventListener {
                 val jda = event.jda
                 val self = jda.selfUser
 
-                if (!event.message.isMentioned(self) ||
+                if (!MENTION_REGEX.matches(event.message.contentRaw) ||
                     (channel is TextChannel && !channel.canTalk())
                 ) {
                     return

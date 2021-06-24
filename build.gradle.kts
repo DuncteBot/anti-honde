@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation("net.dv8tion:JDA:4.2.1_273")
+    implementation("net.dv8tion:JDA:4.3.0_283")
     implementation(group = "ch.qos.logback", name = "logback-classic", version = "1.2.3")
 }
 

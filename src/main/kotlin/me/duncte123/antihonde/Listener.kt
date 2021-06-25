@@ -65,8 +65,6 @@ class Listener : EventListener {
                     this.startupBan(guild)
                 }
                 , 1L, TimeUnit.SECONDS)
-
-
             }
             is GuildMemberRoleAddEvent -> {}
             is GuildLeaveEvent -> {
